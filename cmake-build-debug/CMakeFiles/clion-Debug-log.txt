@@ -1,0 +1,4 @@
+"C:\Program Files\JetBrains\CLion 2024.3.4\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "NMake Makefiles" -S C:\Users\Cata\Desktop\An3_Semestrul2\PI\Proiect_PI_Special_Effects -B C:\Users\Cata\Desktop\An3_Semestrul2\PI\Proiect_PI_Special_Effects\cmake-build-debug
+-- Configuring done (0.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/Cata/Desktop/An3_Semestrul2/PI/Proiect_PI_Special_Effects/cmake-build-debug
