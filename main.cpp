@@ -7,12 +7,12 @@ using namespace cv;
 
 int main() {
     // Încărcăm imaginea de test (ca imagine color)
-    Mat imagine = imread("C:\\Users\\Cata\\Desktop\\An3_Semestrul2\\PI\\Proiect_PI_Special_Effects\\images\\tree.bmp", IMREAD_COLOR);
+    Mat imagine = imread("C:\\Users\\Cata\\Desktop\\An3_Semestrul2\\PI\\Proiect_PI_Special_Effects\\tests\\inputs\\gradient_512x512.png", IMREAD_COLOR);
     if (imagine.empty()) {
         cout << "Eroare: imaginea nu a fost găsită sau este invalidă." << endl;
         return -1;
     }
-    
+
     imshow("Imagine originală", imagine);
     waitKey(0);
 

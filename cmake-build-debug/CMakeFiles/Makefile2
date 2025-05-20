@@ -53,6 +53,7 @@ CMAKE_BINARY_DIR = C:\Users\Cata\Desktop\An3_Semestrul2\PI\Proiect_PI_Special_Ef
 
 # The main recursive "all" target.
 all: CMakeFiles\Proiect_PI_Special_Effects.dir\all
+all: CMakeFiles\test_suite.dir\all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -61,6 +62,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles\Proiect_PI_Special_Effects.dir\clean
+clean: CMakeFiles\test_suite.dir\clean
 .PHONY : clean
 
 #=============================================================================
@@ -88,6 +90,32 @@ Proiect_PI_Special_Effects: CMakeFiles\Proiect_PI_Special_Effects.dir\rule
 CMakeFiles\Proiect_PI_Special_Effects.dir\clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proiect_PI_Special_Effects.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Proiect_PI_Special_Effects.dir\clean
 .PHONY : CMakeFiles\Proiect_PI_Special_Effects.dir\clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_suite.dir
+
+# All Build rule for target.
+CMakeFiles\test_suite.dir\all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test_suite.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\test_suite.dir\depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test_suite.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\test_suite.dir\build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\Cata\Desktop\An3_Semestrul2\PI\Proiect_PI_Special_Effects\cmake-build-debug\CMakeFiles --progress-num=4,5,6 "Built target test_suite"
+.PHONY : CMakeFiles\test_suite.dir\all
+
+# Build rule for subdir invocation for target.
+CMakeFiles\test_suite.dir\rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Cata\Desktop\An3_Semestrul2\PI\Proiect_PI_Special_Effects\cmake-build-debug\CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) CMakeFiles\test_suite.dir\all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Cata\Desktop\An3_Semestrul2\PI\Proiect_PI_Special_Effects\cmake-build-debug\CMakeFiles 0
+.PHONY : CMakeFiles\test_suite.dir\rule
+
+# Convenience name for target.
+test_suite: CMakeFiles\test_suite.dir\rule
+.PHONY : test_suite
+
+# clean rule for target.
+CMakeFiles\test_suite.dir\clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test_suite.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\test_suite.dir\clean
+.PHONY : CMakeFiles\test_suite.dir\clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

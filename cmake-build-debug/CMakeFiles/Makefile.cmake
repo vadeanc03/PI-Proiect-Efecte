@@ -54,4 +54,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/Proiect_PI_Special_Effects.dir/DependInfo.cmake"
+  "CMakeFiles/test_suite.dir/DependInfo.cmake"
   )

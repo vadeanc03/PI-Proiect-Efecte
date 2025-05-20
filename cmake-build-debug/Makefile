@@ -56,8 +56,8 @@ CMAKE_BINARY_DIR = C:\Users\Cata\Desktop\An3_Semestrul2\PI\Proiect_PI_Special_Ef
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
-	echo >nul && "C:\Program Files\JetBrains\CLion 2024.3.4\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
+	echo >nul && "C:\Program Files\CMake\bin\cmake-gui.exe" -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -118,6 +118,19 @@ Proiect_PI_Special_Effects\fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proiect_PI_Special_Effects.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Proiect_PI_Special_Effects.dir\build
 .PHONY : Proiect_PI_Special_Effects\fast
 
+#=============================================================================
+# Target rules for targets named test_suite
+
+# Build rule for target.
+test_suite: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) test_suite
+.PHONY : test_suite
+
+# fast build rule for target.
+test_suite\fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test_suite.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\test_suite.dir\build
+.PHONY : test_suite\fast
+
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -148,6 +161,7 @@ src\efecte.obj: src\efecte.cpp.obj
 # target to build an object file
 src\efecte.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proiect_PI_Special_Effects.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Proiect_PI_Special_Effects.dir\src\efecte.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test_suite.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\test_suite.dir\src\efecte.cpp.obj
 .PHONY : src\efecte.cpp.obj
 
 src\efecte.i: src\efecte.cpp.i
@@ -156,6 +170,7 @@ src\efecte.i: src\efecte.cpp.i
 # target to preprocess a source file
 src\efecte.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proiect_PI_Special_Effects.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Proiect_PI_Special_Effects.dir\src\efecte.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test_suite.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\test_suite.dir\src\efecte.cpp.i
 .PHONY : src\efecte.cpp.i
 
 src\efecte.s: src\efecte.cpp.s
@@ -164,7 +179,32 @@ src\efecte.s: src\efecte.cpp.s
 # target to generate assembly for a file
 src\efecte.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Proiect_PI_Special_Effects.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Proiect_PI_Special_Effects.dir\src\efecte.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test_suite.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\test_suite.dir\src\efecte.cpp.s
 .PHONY : src\efecte.cpp.s
+
+tests\TestSuite.obj: tests\TestSuite.cpp.obj
+.PHONY : tests\TestSuite.obj
+
+# target to build an object file
+tests\TestSuite.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test_suite.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\test_suite.dir\tests\TestSuite.cpp.obj
+.PHONY : tests\TestSuite.cpp.obj
+
+tests\TestSuite.i: tests\TestSuite.cpp.i
+.PHONY : tests\TestSuite.i
+
+# target to preprocess a source file
+tests\TestSuite.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test_suite.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\test_suite.dir\tests\TestSuite.cpp.i
+.PHONY : tests\TestSuite.cpp.i
+
+tests\TestSuite.s: tests\TestSuite.cpp.s
+.PHONY : tests\TestSuite.s
+
+# target to generate assembly for a file
+tests\TestSuite.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test_suite.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\test_suite.dir\tests\TestSuite.cpp.s
+.PHONY : tests\TestSuite.cpp.s
 
 # Help Target
 help:
@@ -175,12 +215,16 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Proiect_PI_Special_Effects
+	@echo ... test_suite
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
 	@echo ... src/efecte.obj
 	@echo ... src/efecte.i
 	@echo ... src/efecte.s
+	@echo ... tests/TestSuite.obj
+	@echo ... tests/TestSuite.i
+	@echo ... tests/TestSuite.s
 .PHONY : help
 
 

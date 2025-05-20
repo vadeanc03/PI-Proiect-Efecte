@@ -4,7 +4,7 @@
 # compile CXX with C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/cl.exe
 CXX_DEFINES = 
 
-CXX_INCLUDES = -external:IC:\Users\Cata\Downloads\opencv\build\include -external:W0
+CXX_INCLUDES = -IC:\Users\Cata\Desktop\An3_Semestrul2\PI\Proiect_PI_Special_Effects\src -external:IC:\Users\Cata\Downloads\opencv\build\include -external:W0
 
 CXX_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++17
 

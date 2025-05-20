@@ -1,3 +1,4 @@
 C:/Users/Cata/Desktop/An3_Semestrul2/PI/Proiect_PI_Special_Effects/cmake-build-debug/CMakeFiles/Proiect_PI_Special_Effects.dir
+C:/Users/Cata/Desktop/An3_Semestrul2/PI/Proiect_PI_Special_Effects/cmake-build-debug/CMakeFiles/test_suite.dir
 C:/Users/Cata/Desktop/An3_Semestrul2/PI/Proiect_PI_Special_Effects/cmake-build-debug/CMakeFiles/edit_cache.dir
 C:/Users/Cata/Desktop/An3_Semestrul2/PI/Proiect_PI_Special_Effects/cmake-build-debug/CMakeFiles/rebuild_cache.dir

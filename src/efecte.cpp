@@ -110,9 +110,9 @@ Mat efect_desaturare(Mat img) {
     for (int i = 0; i < img.rows; i++) {
         for (int j = 0; j < img.cols; j++) {
             Vec3b& pixel = rezultat.at<Vec3b>(i, j);
-            int medie = (pixel[0] + pixel[1] + pixel[2]) / 3;
+            int medie = (pixel[0] + pixel[1] + pixel[2])  / 3;
 
-            // 50% din culoare, 50% din medie
+            // combina culoarea originala cu griul sau
             pixel[0] = (pixel[0] + medie) / 2;
             pixel[1] = (pixel[1] + medie) / 2;
             pixel[2] = (pixel[2] + medie) / 2;
@@ -139,9 +139,9 @@ Mat efect_posterize(Mat img, int niveluri) {
         }
     }
 
-    // Vector pentru etichete si pentru centrele clusterelor
+    // vector pentru etichete si pentru centrele clusterelor
     Mat etichete;
-    Mat centre;
+    Mat centre; // culorile fiecarui cluster
 
     // aici aplicam KMeans
     kmeans(samples, niveluri, etichete,
