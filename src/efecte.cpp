@@ -7,10 +7,12 @@ using namespace std;
 using namespace cv;
 
 
-Mat efect_invert(Mat img) {
+Mat efect_invert(const Mat& img) {
      // Inverseaza culorile fiecarui pixel: 255 - valoarea actuala
 
-    Mat rezultat = img;
+    //Mat rezultat = img;
+    //optimizat cu img.clone
+    Mat rezultat = img.clone();
 
     for (int i = 0; i < rezultat.rows; i++) {
         for (int j = 0; j < rezultat.cols; j++) {
@@ -25,10 +27,11 @@ Mat efect_invert(Mat img) {
 }
 
 
-Mat efect_monocrom(Mat img) {
+Mat efect_monocrom(const Mat& img) {
      // Conversie la alb-negru binar pe baza mediei RGB
 
-    Mat rezultat = img;
+    //Mat rezultat = img;
+    Mat rezultat = img.clone();
 
     for (int i = 0; i < rezultat.rows; i++) {
         for (int j = 0; j < rezultat.cols; j++) {
@@ -45,10 +48,11 @@ Mat efect_monocrom(Mat img) {
 }
 
 
-Mat efect_sepia(Mat img) {
+Mat efect_sepia(const Mat& img) {
      // Aplica efectul sepia folosind formule fixe
 
-    Mat rezultat = img;
+    //Mat rezultat = img;
+    Mat rezultat = img.clone();
 
     for (int i = 0; i < rezultat.rows; i++) {
         for (int j = 0; j < rezultat.cols; j++) {
@@ -73,28 +77,77 @@ Mat efect_sepia(Mat img) {
 }
 
 
-Mat efect_blur(Mat img) {
-     // Aplica blur
+// Mat efect_blur(Mat img) {
+//      // Aplica blur
+//
+//     Mat rezultat = img;
+//
+//     for (int i = 1; i < img.rows - 1; i++) {
+//         for (int j = 1; j < img.cols - 1; j++) {
+//
+//             int sumaB = 0, sumaG = 0, sumaR = 0;
+//
+//             for (int m = -1; m <= 1; m++) {
+//                 for (int n = -1; n <= 1; n++) {
+//                     Vec3b pixel = img.at<Vec3b>(i + m, j + n);
+//                     sumaB += pixel[0];
+//                     sumaG += pixel[1];
+//                     sumaR += pixel[2];
+//                 }
+//             }
+//
+//             rezultat.at<Vec3b>(i, j)[0] = sumaB / 9;
+//             rezultat.at<Vec3b>(i, j)[1] = sumaG / 9;
+//             rezultat.at<Vec3b>(i, j)[2] = sumaR / 9;
+//         }
+//     }
+//
+//     return rezultat;
+// }
 
-    Mat rezultat = img;
+// efectul blur optimizat
+Mat efect_blur(const Mat& img) {
+    int rows = img.rows;
+    int cols = img.cols;
 
-    for (int i = 1; i < img.rows - 1; i++) {
-        for (int j = 1; j < img.cols - 1; j++) {
+    Mat integralImg(rows + 1, cols + 1, CV_32SC3, Vec3i(0, 0, 0));
 
-            int sumaB = 0, sumaG = 0, sumaR = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            Vec3b pix = img.at<Vec3b>(i, j);
+            Vec3i valOrig(pix[0], pix[1], pix[2]);
 
-            for (int m = -1; m <= 1; m++) {
-                for (int n = -1; n <= 1; n++) {
-                    Vec3b pixel = img.at<Vec3b>(i + m, j + n);
-                    sumaB += pixel[0];
-                    sumaG += pixel[1];
-                    sumaR += pixel[2];
-                }
-            }
+            Vec3i sus    = integralImg.at<Vec3i>(i,   j + 1);
+            Vec3i stanga = integralImg.at<Vec3i>(i + 1, j  );
+            Vec3i diag   = integralImg.at<Vec3i>(i,   j  );
 
-            rezultat.at<Vec3b>(i, j)[0] = sumaB / 9;
-            rezultat.at<Vec3b>(i, j)[1] = sumaG / 9;
-            rezultat.at<Vec3b>(i, j)[2] = sumaR / 9;
+            Vec3i &dest = integralImg.at<Vec3i>(i + 1, j + 1);
+            dest = valOrig + sus + stanga - diag;
+        }
+    }
+
+    // Construim imaginea de output, inițial o clona a originalului
+    //    Marginile le lăsăm neschimbate
+    Mat rezultat = img.clone();
+
+    // Pentru fiecare pixel interior, calculăm blur-ul pe 3×3 cu ajutorul imaginii integrale
+    for (int i = 1; i < rows - 1; i++) {
+        for (int j = 1; j < cols - 1; j++) {
+            Vec3i A = integralImg.at<Vec3i>(i - 1,     j - 1);
+            Vec3i B = integralImg.at<Vec3i>(i - 1,     j + 2);
+            Vec3i C = integralImg.at<Vec3i>(i + 2,     j - 1);
+            Vec3i D = integralImg.at<Vec3i>(i + 2,     j + 2);
+
+            // Suma celor 9 pixeli (B, G, R) din patch-ul 3×3
+            Vec3i sum3x3 = D + A - B - C;
+
+            // Calculăm media pe cele 3 canale, împărțind la 9 și convertind la uchar
+            Vec3b medie;
+            medie[0] = static_cast<uchar>(sum3x3[0] / 9);
+            medie[1] = static_cast<uchar>(sum3x3[1] / 9);
+            medie[2] = static_cast<uchar>(sum3x3[2] / 9);
+
+            rezultat.at<Vec3b>(i, j) = medie;
         }
     }
 
@@ -102,10 +155,11 @@ Mat efect_blur(Mat img) {
 }
 
 
-Mat efect_desaturare(Mat img) {
+Mat efect_desaturare(const Mat& img) {
      // Efect de desaturare; reduce saturația culorilor
 
-    Mat rezultat = img;
+    //Mat rezultat = img;
+    Mat rezultat = img.clone();
 
     for (int i = 0; i < img.rows; i++) {
         for (int j = 0; j < img.cols; j++) {
@@ -123,11 +177,13 @@ Mat efect_desaturare(Mat img) {
 }
 
 
-Mat efect_posterize(Mat img, int niveluri) {
+Mat efect_posterize(const Mat& img, int niveluri) {
      // Posterize folosind algoritmul K-Means Clustering
      // niveluri = numarul de culori dorite (K)
 
-    Mat rezultat;
+    //Mat rezultat;
+    Mat rezultat = img.clone();
+
     Mat samples(img.rows * img.cols, 3, CV_32F);
 
     // Pregatim vectorii de intrare pentru K-Means
@@ -145,7 +201,7 @@ Mat efect_posterize(Mat img, int niveluri) {
 
     // aici aplicam KMeans
     kmeans(samples, niveluri, etichete,
-           TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 10, 1.0),
+           TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 5, 1.0),
            3, KMEANS_PP_CENTERS, centre);
 
     // Refacem imaginea folosind centrele clusterelor
@@ -165,11 +221,12 @@ Mat efect_posterize(Mat img, int niveluri) {
 }
 
 
-Mat efect_pixelate(Mat img, int blockSize) {
+Mat efect_pixelate(const Mat& img, int blockSize) {
      // Efect de pixelare: impartim imaginea in patrate egale
      // fiecare bloc este inlocuit cu culoarea medie a sa
 
-    Mat rezultat = img;
+    //Mat rezultat = img;
+    Mat rezultat = img.clone();
 
     for (int i = 0; i < img.rows; i += blockSize) {
         for (int j = 0; j < img.cols; j += blockSize) {
